@@ -546,21 +546,590 @@ print( tp2 )
 42, # is also a 1-element tuple. And ugly, just like the parenthesized version.
 
 # EXERCISE: Construct tuples from other sequences such as strings or lists.
+#           Hint: Use the 'tuple' built-in callable.
 
 # <demo> --- stop ---
 
 ### Dictionaries ###
 
+# Dictionaries are Python maps of type 'dict'.
+# Maps associate a key with a value.
+
+print( type( dict( ) ) )
+
+# There is syntactic sugar for dictionaries.
+print( { } )
+print( { 1: "a" } )
+print( { 1: "a", "foo": "bar", None: 42.0J } )
+
+# An empty dictionary can also be created using the 'dict' callable.
+print( dict( ) )
+# Dictionaries can also be initialized from "keyword arguments".
+# The name of each keyword argument will be stored as a string.
+d = dict( pi = 3.142, e = 2.718, the_answer = 42 )
+print( d )
+# Note: Keyword arguments are _not_ variable assignments.
+# EXERCISE: After creating the above dictionary, do:
+#   print the_answer
+
+# Dictionaries support the indexing operation.
+# Given a key (rather than a position as with a sequence),
+# the mapped value will be returned.
+print( d[ "pi" ] )
+
+# You may have noted above that dictionaries are not order-preserving.
+# Later, we will discuss the 'OrderedDict' type, which is order-preserving.
+
 # <demo> --- stop ---
+
+### Addition and Subtraction ###
+
+# Thus far, we've limited ourselves to using a handful of callables
+# and introducing the various built-in data types.
+# Now, let's look at the various operators available in Python.
+
+## Addition ##
+print( 41 + 1 )
+print( 41.0 + 1 )
+print( complex( 41, 41 ) + complex( 1, 1 ) )
+print( "a" + "b" )
+print( [ 1, "a" ] + [ 42J ] )
+# The 'set' and 'dict' types do not support addition.
+# Tip:
+#   Look for the "__add__" attribute in a type's attributes directory.
+
+## Subtraction ##
+print( 43 - 1 )
+print( 43.0 - 1 )
+print( complex( 43, 42 ) - complex( 1, 0 ) )
+print( set( [ 1, 3, 4 ] ) - set( [ 1 ] ) )
+# The 'str', 'list', and 'dict' types do not support subtraction.
+# Tip:
+#   Look for the "__sub__" attribute in a type's attributes directory.
+
+# Side Note:
+#   There are also "reversed" versions of some operator callables,
+#   like "__radd__" and "__rsub__". These swap the operands, in case one
+#   supports the operation and the other doesn't.
+#   As a user, you don't need to worry about this. It happens behind the scenes.
+
+# <demo> --- stop ---
+
+### Multiplication and Exponentiation ###
+
+## Multiplication ##
+print( 7 * 6 )
+print( 6.0 * 7 )
+print( complex( 3, 3 ) * complex( 7, -7 ) )
+print( "ab" * 42 )
+print( [ 1, "a" ] * 4 )
+# The 'set' and 'dict' types do not support multiplication.
+# Tip:
+#   Look for the "__mul__" attribute in a type's attributes directory.
+
+## Exponentiation ##
+print( 4 ** 5 )
+print( 4 ** 5.0 )
+print( complex( 4, 4 ) ** complex( 5, 5 ) )
+# None of the sequence or map types support exponentiation.
+# Tip:
+#   Look for the "__pow__" attribute in a type's attributes directory.
+
+# <demo> --- stop ---
+
+### Division and True Division ###
+
+## Division ##
+print( 84 / 2 )
+print( 126 / 3.0 )
+print( complex( 84, 84 ) / complex( 2, 2 ) )
+# None of the sequence or map types support division.
+# Tip:
+#   Look for the "__div__" attribute in a type's attributes directory.
+
+# Let's look at division more closely....
+# Python 2 follows the C convention for integer division: remainders dropped.
+print( 5 / 4 )
+# Python 3 will return 1.25 instead of 1 for the above.
+# So, if you want integer division, then be explicit about it.
+print( 5 // 4 )
+a = 5
+print( a.__floordiv__( 2 ) )
+
+## True Division ##
+# What about "true division" in Python 2.
+# In Python 2.6 and 2.7, you can either use the "__truediv__" attribute:
+a = 5
+print( a.__truediv__( 2 ) )
+# or you can issue the following statement:
+#   from __future__ import true_division
+# and then divide as you might expect.
+# Note: If you import something from the '__future__' package in a script,
+#       then it must appear before other imports.
+#       We will discuss this more later. 
+
+# <demo> --- stop ---
+
+### Modular Arithmetic ###
+
+## Modulo ##
+print( 5 % 4 )
+print( 5 % -4 )
+print( 5 % 4.0 )
+print( 5 % 3.5 )
+print( 5 % complex( 4, 2 ) )
+print( complex( 5, 5 ) % complex( 4, 4 ) )
+# Tip:
+#   Look for the "__mod__" attribute in a type's attributes directory.
+
+## Quotient and Remainder ##
+# Use the 'divmod' built-in callable to quotient and remainder at the same time.
+print( divmod( 5, 4 ) )
+print( divmod( 5.0, 3.5 ) )
+
+# Q: What about getting the LCD and GCD?
+# A: We'll get to that.... They're not built-in functions.
+
+# <demo> --- stop ---
+
+### Rounding and Truncation ###
+
+## Rounding to Nearest ##
+print( round( 3.5 ) )
+print( round( 3.4999 ) )
+print( round( -3.5 ) )
+print( round( -3.4999 ) )
+print( round( 3.5, -1 ) )
+print( round( 11.5, -1 ) )
+print( round( 3.5, 1 ) )
+print( round( 3.49, 3 ) )
+
+## Truncation ##
+print( int( 3.5 ) )
+print( int( -3.5 ) )
+print( long( 3.5 ) )
+print( long( -3.5 ) )
+# "__trunc__" is the attribute which supports truncation.
+print( 3.5.__trunc__( ) )
+
+## Explicit Conversion ##
+print( coerce( 3, 3.5 ) )
+print( coerce( 3, 4L ) )
+
+# Q: What about getting the floor and ceiling?
+# A: We'll get to that.... They're not built-in functions.
+
+# <demo> --- stop ---
+
+### Number Bases ###
+
+## Binary (Base-2) ##
+print( bin( 42 ) )
+print( 0b101010 )
+print( int( "101010", 2 ) )
+print( int( "0b101010", 2 ) )
+
+## Octal (Base-8) ##
+print( oct( 42 ) )  # Uses "__oct__" attribute.
+print( 052 )  # Yes, a leading 0 means base-8. Like in C.
+print( 0o52 )
+print( int( "52", 8 ) )
+print( int( "0o52", 8 ) )
+
+## Hexdecimal (Base-16) ##
+print( hex( 42 ) )  # Uses "__hex__" attribute.
+print( 0x42 )  # A leading 0x means base-16. Like in C.
+print( int( "2a", 16 ) )
+print( int( "2A", 16 ) )
+print( int( "0x2a", 16 ) )
+print( int( "0X2A", 16 ) )
+
+## Up to Base-36 Conversions ##
+print( int( "z1", 36 ) )
+print( int( "Z1", 36 ) )
+
+# <demo> --- stop ---
+
+### String Escape Sequences ###
+
+## Escape Sequences for Terminal Control ##
+print( "1\t2" )   # Horizontal Tab - usually equivalent to 8 spaces
+print( "1\n2" )   # Newline
+print( "1\r2" )   # Carriage Return
+print( "1\r\n2" ) # CR+LF is special. Acts like newline. DOS/Windows compatible.
+print( "1\a2" )   # Bell - beep! (if terminal supports it and sound is on)
+# Go ahead, get it out of your system now...
+print( "\a" * 42 )
+print( "1\v2" )   # Vertical Tab - terminal may not support
+print( "1\f2" )   # Form Feed - terminal may not support
+print( "1\b2" )   # Backspace
+
+## Other Escape Sequences ##
+print( "1\"2" )   # Double Quote inside double-quoted string.
+print( '1\'2' )   # Single Quote inside single-quoted string.
+print( "1\\2" )   # Backslash
+print( "\042" )   # Octal value for a Double Quote.
+print( "\x42" )   # Hexadecimal value for Uppercase Letter 'B'.
+print( u"\u0042" ) # 2-byte hexadecimal value of a Unicode code point.
+print( u"\U00000042" ) # 4-byte hexadecimal value of a Unicode code point.
+print( u"\N{LATIN CAPITAL LETTER B}" ) # Unicode code point by name.
+# http://www.fileformat.info/info/unicode/char/42/index.htm
+print( u"\N{LATIN CAPITAL LETTER A WITH RING ABOVE}" )
+# http://www.fileformat.info/info/unicode/char/00c5/index.htm
+
+# <demo> --- stop ---
+
+### Raw Strings ###
 
 # Python also provides another kind of string known as a "raw string".
-# The reason for these may be discussed later.
+# These are useful when you want to ignore escape sequences.
 
-r'This is a raw string.'
-r"This is a raw string."
-r'''You guessed it... this is a raw string.'''
-r"""Yes, this is also a raw string."""
+print( r'This is a raw string.\n\r\t' )
+print( r"This is a raw string.\n\r\t" )
+print( r'''You guessed it...
+        this is a raw string.\n\r\t''' )
+print( r"""Multi-line support in this too,
+another raw string.\n\r\t""" )
+
+# One place where raw strings are very useful is regular expressions.
+# Regular expressions use backslash in their own ways.
+# They are very useful for text searches. We will talk more about them later.
 
 # <demo> --- stop ---
 
+### String Interpolation and Formatting ###
 
+# C programmers will be familiar with much of the following.
+print( "%d" % 42 )
+print( "%d" % 0x42 )
+print( "%x" % 0x42 )
+print( "%o" % 42 )
+print( "%d" % 2 ** 128 ) # 'long' types are handled transparently
+print( "%f" % 3.14159 )
+print( "%e" % 3.14159 )
+print( "%g" % 3.14159 )
+print( "%s" % "abc" )
+print( "%s" % 42 ) # %s calls 'str' callable on objects.
+print( "%s" % [ "a", 1, 42J ] )
+print( "%d%% + %d%% = %d%%" % tuple( [ 40, 60, 100 ] ) ) # %% -> %
+d = dict( a = 40, b = 60, c = 100 )
+print( "%(a)d + %(b)d = %(c)d" % d ) # Can use keys from dictionaries.
+
+# Python 3 prefers use of the 'format' callable.
+# Also available in Python 2.
+# Much more powerful. Prefer to use this instead of the above.
+print( "The answer is {0}.".format( 42 ) )
+print( "{0} + {1} = {2}".format( 40, 60, 100 ) )
+print( "{2} - {0} = {0}".format( 40, 60, 100 ) )
+print( "'%' is not special here. {0}".format( 42 ) )
+print( "{{ is escaped; so is }}. {0}".format( 42 ) )
+print( "real part: {0.real}\nimag part: {0.imag}".format( complex( 42, 42 ) ) )
+print( "x = {x};\ty = {y}".format( x = 5, y = 4.0 ) )
+# For more details, see:
+#   http://docs.python.org/2/library/string.html#formatstrings
+#   http://docs.python.org/2/library/string.html#formatspec
+
+# <demo> --- stop ---
+
+### Simple User Interaction ###
+
+# At some point, you may write a Python script that takes input from the user.
+# Here is a simple way to use the built-in 'raw_input' callable for that:
+ans = raw_input( "What is your name?\t" )
+print( "Hello, {}. I am pleased to meet you.".format( ans ) )
+# 'raw_input' interprets all input from the user as a string.
+# If you ask for a number, you will want to use 'int', 'float', etc... on it.
+
+# EXERCISE: Write a few lines of Python code which will prompt for
+#           2 floating-point real numbers and then multiply them together.
+
+# If you are interested in doing science, then you probably won't be asking for
+# passwords. BUT, if you do want to ask users for passwords, then using
+# 'raw_input' is _not_ how you do it. There is a separate Python module
+# for that, which provides proper security.
+
+# <demo> --- stop ---
+
+### Arithmetic Comparisons ###
+
+## Exact Equality ##
+print( 42 == 42 )
+print( 42 == 2 )
+print( 42 == 42.0 )
+print( [ 42 ] == [ 42 ] )
+print( "ab" == "abc" )
+
+## Exact Inequiality ##
+print( 42 != 42 )
+print( 42 != 2 )
+print( 42 != [ 42 ] )
+print( "ab" != "abc" )
+
+# <demo> --- stop ---
+
+### Arithmetic Comparisons ###
+
+## Greater-Than-Or-Equals ##
+print( 42 >= 42 )
+print( 42 >= 2 )
+print( "ab" >= "abc" )
+
+## Greater-Than ##
+print( 42 > 42 )
+print( 42 > 2 )
+print( "ab" > "abc" )
+
+# <demo> --- stop ---
+
+### Arithmetic Comparisons ###
+
+## Less-Than-Or-Equals ##
+print( 42 <= 42 )
+print( 42 <= 2 )
+print( "ab" <= "abc" )
+
+## Less-Than ##
+print( 42 < 42 )
+print( 42 < 2 )
+print( "ab" < "abc" )
+
+# <demo> --- stop ---
+
+### Arithmetic Comparisons ###
+
+## Built-in Callable: cmp ##
+# Tip: Look at a type's attributes directory for the "__cmp__" attribute.
+#      All of the arithmetic comparisons are based off this.
+#      -1 if less than, 0 if equal, 1 if greater than
+print( cmp( 42, 42.0 ) )
+print( cmp( "ab", "bc" ) )
+print( cmp( "bc", "abc" ) )
+
+## Built-in Callable: ord ##
+# String comparisons rely on the values of the underlying characters.
+print( ord( "a" ) )
+print( ord( "b" ) )
+# The counterparts to 'ord' are 'chr' and 'unichr'.
+# EXERCISE: Print the captial letter 'B' with 'chr'.
+
+# <demo> --- stop ---
+
+### Truth, Falsity, and Negation ###
+
+# Nearly all Python objects have a "zero" value.
+# Zero values are associated with falsity.
+# Non-zero values are associated with truth.
+
+## Logical Negation ##
+# Similar to C/C++ ! or Fortran .not. .
+print( not False )
+print( not True )
+print( not 0 )
+print( not 42 )
+print( not [ ] )
+print( not [ 42 ] )
+print( not "" )
+print( not "foo" )
+
+# <demo> --- stop ---
+
+### Logical Comparisons ###
+
+## Logical-And ##
+# Similar to C/C++ && or Fortran .and. .
+# Short circuit evaluation: first false expression ends testing.
+# The value of the first false expression is returned.
+# If end of test is reached, then last expression is returned.
+print( 23 and "me" )
+print( 0 and 42 )
+print( 23 and "me" and False )
+print( 42 and [ ] and 1 )
+
+## Logical-Or ##
+# Similar to C/C++ || or Fortran .or. .
+# Short circuit evaluation: first true expression ends testing.
+# The value of the first true expression is returned.
+# If end of test is reached, then last expression is returned.
+print( 23 or "me" )
+print( 0 or 42 )
+print( 23 or "me" or False )
+print( 42 or [ ] or 1 )
+
+# <demo> --- stop ---
+
+### Identity and Sameness ###
+
+## Identity ##
+# Every object in Python has an identification code.
+# The 'id' built-in callable can be used to access this.
+a = b = "foo"
+print( id( a ) )
+print( id( b ) )
+print( id( "bar" ) )
+# If values are equivalent but of different type, they will have different IDs.
+print( id( 42 ) )
+print( id( 42.0 ) )
+print( 42 == 42.0 )
+print( id( 42 ) == id( 42.0 ) )
+
+## Sameness ##
+# The 'is' operator is shorthand for comparing IDs.
+a = b = "foo"
+print( a is b )
+print( a is "bar" )
+print( a is None )  # There is only one 'None'. Either you're it or you're not.
+print( 42 is 42.0 )
+# You can negate 'is' tests in one of two ways:
+print( not 42 is 42.0 )
+print( 42 is not 42.0 ) # Equivalent to above.
+
+# <demo> --- stop ---
+
+### Testing Membership ###
+
+## Sequence Membership ##
+# You may have noticed that attribute directories look like lists.
+# In fact, they are lists.
+# You may have grown tired of scanning their members with your eye.
+# Let's let the Python 'in' operator do the work for us.
+print( "__add__" in dir( int ) )
+print( dir( int ).__contains__( "__add__" ) ) # Equivalent to above.
+print( "foo" in dir( int ) )
+print( not "foo" in dir( int ) )
+print( "foo" not in dir( int ) ) # Equivalent to above.
+
+## Map Membership ##
+# The 'in' operator checks a dictionary's keys, not its values.
+d = dict( a = 42, b = "foo", c = 42J )
+print( "a" in d )
+print( "d" in d )
+print( 42 in d )
+print( "foo" in d )
+print( d.has_key( "a" ) )
+print( d.has_key( "d" ) )
+# Prefer the 'in' operator over the 'has_key' attribute.
+# 'in' will work on anything which has the '__contains__' attribute.
+
+# <demo> --- stop ---
+
+### Testing Attribution and Callability ###
+
+## Testing for Attribute Existence ##
+# Up until now, we have contented ourselves with getting a list from 'dir'.
+# But, we can actually test for attributes directly.
+# The 'hasattr' built-in exists for this purpose.
+print( hasattr( 42, "__add__" ) )
+print( hasattr( int, "__add__" ) )
+print( not hasattr( int, "foo" ) )
+
+## Testing Callability ##
+# How do we know if something is callable?
+# Try calling it...
+# or test with the 'callable' built-in callable.
+print( callable( int ) )
+print( callable( 42 ) )
+print( callable( callable ) )
+
+# <demo> --- stop ---
+
+### Flow Control: if-elif-else ###
+
+# Finally, it is time to start writing some simple programs
+# with flow control.
+# Let's take a look at Python's if-elif-else statement.
+
+# A simple 'if' statement.
+if not 42 is 42.0:
+    print( "42 and 42.0 have different IDs" )
+
+# A simple 'if-else' statement.
+# Remember the zero/non-zero dichotomy of values.
+a = [ ]
+if a:
+    print( "non-zero value" )
+else:
+    print( "zero value" )
+
+#
+
+# VERY IMPORTANT NOTE!
+# If you forget or ignore everything else from this demo,
+# then please remember the following:
+#   Python _requires_ indentation inside of flow control structures!
+# It is recommended that you use 4 spaces per level of indentation.
+# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+
+# <demo> --- stop ---
+
+### Flow Control: while-else ###
+
+# VERY IMPORTANT NOTE!
+# If you forget or ignore everything else from this demo,
+# then please remember the following:
+#   Python _requires_ indentation inside of flow control structures!
+# It is recommended that you use 4 spaces per level of indentation.
+# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+
+# <demo> --- stop ---
+
+### Flow Control: for-else ###
+
+# VERY IMPORTANT NOTE!
+# If you forget or ignore everything else from this demo,
+# then please remember the following:
+#   Python _requires_ indentation inside of flow control structures!
+# It is recommended that you use 4 spaces per level of indentation.
+# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+
+### Flow Control: break, continue, return ###
+
+### Flow Control: raise and try-except-else-finally ###
+
+# VERY IMPORTANT NOTE!
+# If you forget or ignore everything else from this demo,
+# then please remember the following:
+#   Python _requires_ indentation inside of flow control structures!
+# It is recommended that you use 4 spaces per level of indentation.
+# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+
+### Iterators and Generators ###
+
+### Defining Functions ###
+
+### Defining Classes ###
+
+# TODO? Put below into 'stdlib' demo.
+
+### Using Packages and Modules ###
+
+### sys ###
+
+### os.path ###
+
+### collections ###
+
+### math and cmath ###
+
+### fractions ###
+
+### decimal ###
+
+### functools and operator ###
+
+### pprint ###
+
+### re ###
+
+### argparse ###
+
+### pickle ###
+
+### hashlib ###
+
+### pdb ###
+
+# <demo> --- stop ---
+
+## Recipe: Implies ##
+
+## Recipe: Exclusive-Or ##
