@@ -686,6 +686,8 @@ print( complex( 5, 5 ) % complex( 4, 4 ) )
 # Use the 'divmod' built-in callable to quotient and remainder at the same time.
 print( divmod( 5, 4 ) )
 print( divmod( 5.0, 3.5 ) )
+# Tip:
+#   Look for the "__divmod__" attribute in a type's attributes directory.
 
 # Q: What about getting the LCD and GCD?
 # A: We'll get to that.... They're not built-in functions.
@@ -718,6 +720,99 @@ print( coerce( 3, 4L ) )
 
 # Q: What about getting the floor and ceiling?
 # A: We'll get to that.... They're not built-in functions.
+
+# <demo> --- stop ---
+
+### Operations with Assignment ###
+
+# All of the basic arithmetic operations can be combined with assignment.
+
+a = 41
+a = a + 1
+# becomes
+a = 41
+print( "before: a = ", a )
+a += 1
+print( "after: a = ", a )
+
+a = 43
+print( "before: a = ", a )
+a -= 1
+print( "after: a = ", a )
+
+a = 6
+print( "before: a = ", a )
+a *= 7
+print( "after: a = ", a )
+
+a = 84
+print( "before: a = ", a )
+a /= 2
+print( "after: a = ", a )
+
+a = 84
+print( "before: a = ", a )
+a //= 2
+print( "after: a = ", a )
+
+a = 42
+print( "before: a = ", a )
+a %= 43
+print( "after: a = ", a )
+
+# <demo> --- stop ---
+
+### Bitwise Operations ###
+
+# Python provides the full set of expected bitwise operations.
+
+## Bitwise-And ##
+print( 42 & 10 )
+a = 42
+print( "before: a = ", a )
+a &= 10
+print( "after: a = ", a )
+# Tip: The "__and__" attribute.
+
+## Bitwise-Or ##
+print( 42 | 10 )
+a = 42
+print( "before: a = ", a )
+a |= 10
+print( "after: a = ", a )
+# Tip: The "__or__" attribute.
+
+## Bitwise-Xor ##
+print( 42 ^ 10 )
+a = 42
+print( "before: a = ", a )
+a ^= 10
+print( "after: a = ", a )
+# Tip: The "__xor__" attribute.
+
+# <demo> --- stop ---
+
+### Bitwise Operations ###
+
+## Bitwise-Negation ##
+print( ~-43 )
+# Tip: The "__invert__" attribute.
+
+## Bitshift-Left ##
+print( 10 << 2 )
+a = 10
+print( "before: a = ", a )
+a <<= 2
+print( "after: a = ", a )
+# Tip: The "__lshift__" attribute.
+
+## Bitshift-Right ##
+print( 42 >> 2 )
+a = 42
+print( "before: a = ", a )
+a >>= 2
+print( "after: a = ", a )
+# Tip: The "__rshift__" attribute.
 
 # <demo> --- stop ---
 
@@ -792,7 +887,7 @@ print( r"""Multi-line support in this too,
 another raw string.\n\r\t""" )
 
 # One place where raw strings are very useful is regular expressions.
-# Regular expressions use backslash in their own ways.
+# Regular expressions use backslash in their own way.
 # They are very useful for text searches. We will talk more about them later.
 
 # <demo> --- stop ---
@@ -899,7 +994,6 @@ print( "ab" < "abc" )
 
 ## Built-in Callable: cmp ##
 # Tip: Look at a type's attributes directory for the "__cmp__" attribute.
-#      All of the arithmetic comparisons are based off this.
 #      -1 if less than, 0 if equal, 1 if greater than
 print( cmp( 42, 42.0 ) )
 print( cmp( "ab", "bc" ) )
@@ -1032,71 +1126,705 @@ print( callable( callable ) )
 
 # <demo> --- stop ---
 
-### Flow Control: if-elif-else ###
+### Flow Control ###
 
-# Finally, it is time to start writing some simple programs
-# with flow control.
-# Let's take a look at Python's if-elif-else statement.
+# VERY IMPORTANT NOTE!
+# If you forget or ignore everything else from this demo,
+# then please remember the following:
+#   Python _requires_ indentation inside of flow control structures!
+# Curly braces (like in C) or BEGIN..END blocks are not used or allowed.
 
-# A simple 'if' statement.
+# IMPORTANT NOTE:
+# A best practice is to use 4 _spaces_ per level of indentation.
+# Good code editors can be configured to insert 4 spaces with the TAB key.
+# Really good code editors can manage "soft tabs",
+# which allow a BACKSPACE to backwards delete groups of 4 spaces as well.
+# Python 3 is _very picky_ about mixing spaces and horizontal tabs;
+# therefore, it is highly recommended that you avoid tabs in your code.
+
+# Python provides the following kinds of flow control:
+#   * Acyclic Branching:
+#       'if'-'elif'-'else'
+#   * Cyclic Branching (Iteration):
+#       'while'-'continue'-'break'-'else'
+#       'for..in'-'continue'-'break'-'else'
+#   * Stacked or Contextual Execution:
+#       function call-'raise'-'yield'-'return'
+#       'try'-'except'-'else'-'finally'
+#       'with..as'
+
+# <demo> --- stop ---
+
+### Acyclic Branching ###
+
+# Python's 'if' is much like Bourne shell's 'if'
+# except that you do not need a closing 'fi' statement.
+
+# A simple 'if' block.
 if not 42 is 42.0:
     print( "42 and 42.0 have different IDs" )
 
-# A simple 'if-else' statement.
+# A simple 'if'-'else' block.
 # Remember the zero/non-zero dichotomy of values.
 a = [ ]
 if a:
-    print( "non-zero value" )
+    print( "non-zero value of type {0}".format( type( a ) ) )
 else:
-    print( "zero value" )
+    print( "zero value for type {0}".format( type( a ) ) )
 
-#
-
-# VERY IMPORTANT NOTE!
-# If you forget or ignore everything else from this demo,
-# then please remember the following:
-#   Python _requires_ indentation inside of flow control structures!
-# It is recommended that you use 4 spaces per level of indentation.
-# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
-
-# <demo> --- stop ---
-
-### Flow Control: while-else ###
-
-# VERY IMPORTANT NOTE!
-# If you forget or ignore everything else from this demo,
-# then please remember the following:
-#   Python _requires_ indentation inside of flow control structures!
-# It is recommended that you use 4 spaces per level of indentation.
-# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+# Multiply-branched 'if'-'else' block.
+a = [ 42, "foo" ]
+b = ord
+if   b in a:
+    print( "matched first branch" )
+elif callable( b ):
+    print( "matched second branch" )
+    print( "{} is callable".format( b ) )
+elif b is None:
+    print( "matched third branch" )
+else:
+    print( "{} didn't match any other branch".format( c ) )
 
 # <demo> --- stop ---
 
-### Flow Control: for-else ###
+### Acyclic Branching: Biconditionals ###
 
-# VERY IMPORTANT NOTE!
-# If you forget or ignore everything else from this demo,
-# then please remember the following:
-#   Python _requires_ indentation inside of flow control structures!
-# It is recommended that you use 4 spaces per level of indentation.
-# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+# If you know C well enough, then you have probably come across something like:
+#   x = (a > b) ? a : b;
+# This is a biconditional expression.
 
-### Flow Control: break, continue, return ###
+# Python supports biconditional expressions as well,
+# but the syntax is arranged differently.
+a = 4
+b = 5
+print( a if a > b else b )
+# As with C, nested conditionals are supported,
+# but can be hard to read.
+c = 6
+print( (a if a > b else b) if b > c else c )
 
-### Flow Control: raise and try-except-else-finally ###
+# Note: The above is a contrived example for a 'max' function.
+#       Python provides built-in callables for 'max' and 'min'.
+print( max( a, b ) )
 
-# VERY IMPORTANT NOTE!
-# If you forget or ignore everything else from this demo,
-# then please remember the following:
-#   Python _requires_ indentation inside of flow control structures!
-# It is recommended that you use 4 spaces per level of indentation.
-# Curly braces (like C) or BEGIN..END blocks are not used or allowed.
+# Note that Python has no 'switch' or 'case' statement.
 
-### Iterators and Generators ###
+# Tip:
+#   help( "if" )
 
-### Defining Functions ###
+# <demo> --- stop ---
 
-### Defining Classes ###
+### Cyclic Branching (Iteration) ###
+
+## 'while' Loops ##
+# Like C/C++ 'while' loops.
+# They loop until the termination condition is satisfied.
+# If it is met on loop entry, no looping will occur.
+
+# A simple 'while' loop.
+s = "a"
+while s <= "aaaa":
+    print( s )
+    s += "a"
+
+# A 'while'-'else' loop.
+# The 'else' block is executed when the loop termination condition is satisfied.
+ls = [ 1, "a", 42J ]
+while ls:
+    print( ls )
+    ls = ls[ : -1 ]
+else:
+    print( "List sliced to nothing." )
+
+# Note that Python has no 'do..until' or 'do..while' loops.
+
+# Tip:
+#   help( "while" )
+
+# <demo> --- stop ---
+
+### Cyclic Branching (Iteration) ###
+
+## 'for..in' Loops ##
+# Python 'for' loops are like Bourne shell 'for' loops,
+# and _not_ like C/C++ 'for' loops or Fortran 'DO' loops.
+# They iterate over a supplied sequence.
+
+# A simple 'for..in' loop.
+for x in [ 1, "a", 42J ]:
+    print( x )
+# The 'in' here is not an operator but part of the loop syntax.
+
+# A 'for..in'-'else' loop.
+# Also an introduction to the 'iteritems' callable attribute of 'dict' types...
+# The 'else' block is executed when end of sequence is reached.
+d = dict( a = 1, b = "foo", c = [ ] )
+for k, v in d.iteritems( ):
+    print( k, v )
+else:
+    print( "No more items in dictionary." )
+
+# Tip:
+#   help( "for" )
+
+# <demo> --- stop ---
+
+### Cyclic Branching (Iteration) ###
+
+## 'continue' Statements ##
+# Similar to C/C++ 'continue' or Fortran 'CYCLE'.
+# Starts next loop iteration immediately without executing remainder of block.
+
+i = 10
+while i > 0:
+    i -= 1
+    if 0 == i % 2:
+        continue
+    print( "{0} is odd.".format( i ) )
+
+for x in [ 1, "a", 42J ]:
+    if "a" == x:
+        continue
+    print( x )
+
+# Tip:
+#   help( "continue" )
+
+# <demo> --- stop ---
+
+### Cyclic Branching (Iteration) ###
+
+## 'break' Statements ##
+# Similar to C/C++ 'break' or Fortran 'EXIT'.
+# Exits loop immediately without executing remainder of block.
+# Any 'else' clause for the loop block will not be executed.
+
+i = 0
+while True:
+    if i > 100:
+        break
+    i += 5
+else:
+    print( "This will never be executed beacause of the 'break'." )
+
+for x in [ 1, "a", 42J ]:
+    if "a" == x:
+        break
+    print( x )
+else:
+    print( "This will only execute if 'a' is not in the sequence." )
+
+# Tip:
+#   help( "break" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## Functions ##
+# The 'def' keyword is like the Fortran 'SUBROUTINE' or 'FUNCTION' keywords,
+# or like the 'defun' keyword in Lisp.
+# Python functions are callable objects.
+
+# A very simple function.
+def foo( ):
+    print( "Hello, world!" )
+# Python has no concept like a C/C++ 'void function' or Fortran 'SUBROUTINE'.
+# All functions return 'None' by default.
+x = foo( )
+print( x )
+
+# A function with parameters.
+# Parameters are just variable names which can take on values of any type.
+def bar( x, y ):
+    print( x * y )
+# If you don't assign the return value of a function to a variable name,
+# then the value will be discarded.
+bar( 6, 7 )
+
+# EXERCISE: Write a function which has one parameter.
+#           Assume that this parameter will be a sequence.
+#           Display each element of the sequence.
+
+# Tip:
+#   help( "def" )
+#   help( "functions" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## Default Arguments ##
+# Python allows parameters to be assigned default arguments,
+# if the caller omits the corresponding arguments.
+# The '=' sign after a value denotes a default argument.
+def add_with_default( x, y = 0 ):
+    print( x + y )
+add_with_default( 3 )
+add_with_default( 4, 5 )
+
+## Keyword Arguments ##
+# Python callables can be given arguments in any order by specifying
+# their parameter names with assignments when calling them.
+def xyz_this( x, y, z ):
+    print( x, y, z )
+xyz_this( z = 3, x = 5, y = 7 )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## Anonymous Positional Arguments ##
+# Python callables can accept an unlimited number of anonymous arguments.
+# This is similar to the '...' and 'varargs' machinery of C.
+# The acceptance of anonymous arguments is declared with a parameter name,
+# which starts with an asterisk ("*").
+# The anonymous arguments are presented to the callable as a 'tuple'.
+def print_me( *args ):
+    for arg in args:
+        print( arg )
+print_me( 1, "a", 42J )
+
+## Arbitrary Keyword Arguments ##
+# If you remember the 'dict' built-in callable from earlier,
+# then you have already seen that Python callables can take any number
+# of keyword arguments.
+# The acceptance of keyword arguments is declared with a parameter name,
+# which starts with two asterisks ("**").
+# The keyword arguments are presented to the callable as a 'dict'.
+def print_arbitrary_dict( **kwargs ):
+    print( kwargs )
+print_arbitrary_dict( a = 3, b = "foo", c = 42J )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## 'return' Statement ##
+# The 'return' keyword is like the C/C++ 'return' keyword.
+# The function is immediately exited without executing remaining code.
+
+# Simple function with a single return value.
+def the_answer( ):
+    return 42
+print( the_answer( ) )
+
+# Function with an early return
+def early_return( ):
+    for el in [ 1, "a", 42J ]:
+        if "a" == el:
+            return
+        print( el )
+    print( "If 'a' is in sequence, then this is never executed." )
+
+# Function which returns its arguments multiplied together.
+def mul_xy( x, y ):
+    return x * y
+print( mul_xy( 6, 7 ) )
+
+# Function which returns multiple values.
+def multi_return( ):
+    return 1, "a", 42J
+# Yes, that's actually a tuple.
+a, b, c = multi_return( )
+print( a, b, c )
+
+# Tip:
+#   help( "return" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## 'yield' Statement ##
+# The 'yield' keyword is how Python implements something known as a
+# generator.
+# If you know enough about C/C++, then you may have encountered
+# 'static' variables declared inside of functions.
+# Or, if you know enough about Fortran, then you may have encountered
+# 'SAVE' variables declared inside of procedures.
+# Using 'yield' inside a Python generator takes a snapshot of the state of the
+# entire function, not just certain variables. Execution of a generator
+# restarts after where it last finished.
+# This is different that in the C/C++ or Fortran cases, where only the values
+# of certain variables are kept and the procedure must be exited and entered
+# at the "proper" points each and every time.
+
+# Simple generator in action.
+def count_up_forever( ):
+    i = 0
+    while True:
+        yield i
+        i += 1
+for j in count_up_forever( ):
+    print( j )
+    if 10 <= j:
+        break
+
+# Tip:
+#   help( "yield" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## 'raise' Statement ##
+# Like C++ 'throw' keyword.
+# Flags an exception to normal program flow, often due to an error.
+# Exception propagates up the call stack until caught and handled.
+# Uncaught exceptions will cause the Python interpreter to abort,
+# if it is non-interactive. The interactive interpreter will simply
+# present a new prompt if it catches anything other than the SystemExit
+# exception.
+
+# We aren't going to raise an exception right now,
+# because that would be disruptive to this demo without knowing how to
+# catch whatever we raise.
+
+# Factoid: The generators used by 'for..in' loops raise StopIteration
+#          when they have no more data.
+
+# EXERCISE: Press CTRL-C in your interactive interpreter
+#           and discover the exception that it raises.
+
+# Tip:
+#   help( "raise" )
+#   help( "exceptions" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## 'try'-'except'-'else'-'finally' Block ##
+# Similar to C++ 'catch' keyword but with extra features.
+# Attempts to catch exceptions raised within a 'try' block.
+
+# Simple 'try'-'except' block.
+# Raises an object of the 'SystemExit' type.
+# Catches that object and prints some info about it.
+try:
+    raise SystemExit( 0 )
+except SystemExit as exc:
+    print( exc )
+
+# A more sophisticated 'try'-'except'-'else' block.
+# Specifically catches division-by-zero.
+a = 5
+b = 4
+try:
+    c = a / b
+except ZeroDivisionError as exc:
+    print( "Ooops! Division by zero occurred." )
+    c = 0
+except:
+    raise
+else:
+    print( "Division was successful." )
+# Note that the 'except' clause without an exception type is a catch-all.
+# Any uncaught exception will be caught by that clause.
+# The 'raise' without an exception object simply re-raises whatever was caught.
+
+# Tip:
+#   help( "try" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+# A 'try'-'except'-'else'-'finally' block.
+# Opens a file and writes to it.
+# The 'open' built-in callable can be used to open files
+# for reading and writing.
+f = None
+try:
+    f = open( "scratch", "w" )
+    f.write( "test" )
+except IOError as exc:
+    print( "Ooops! There was an I/O error." )
+except:
+    print( "Some other error occurred. Re-raising." )
+    raise
+else:
+    print( "File operation succeeded." )
+finally:
+    if f: f.close( )
+# The 'finally' clause always executes,
+# no matter whether an exception was handled or re-raised.
+# It will even execute if a 'return' statement is used inside the blocks.
+
+# Note: Exception handlers are tried in order.
+#       A good practice is to make sure the most specific ones are
+#       encountered first.
+#       See help( "exceptions" ) for the hierarchy of exceptions.
+#       Exceptions on the branch tips of the hierarchy are the most specific.
+
+## 'with..as' Blocks ##
+# Python has the notion of context handlers.
+# We can rewrite the above example using a 'with..as' block.
+
+try:
+    with open( "scratch", "w" ) as f:
+        f.write( "test" )
+        print( "File operation succeeded." )
+    # The file is automatically closed at the end of the block,
+    # even if an exception occurs.
+except IOError as exc:
+    print( "Ooops! There was an I/O error." )
+except:
+    print( "Some other error occurred. Re-raising." )
+    raise
+
+# Tip:
+#   help( "with" )
+
+# <demo> --- stop ---
+
+### Stacked or Contextual Execution ###
+
+## 'assert' Keyword ##
+# Similar to the 'assert' macro used in C programs.
+# Raises an AssertionError exception if the tested expression evalues to a
+# "zero" value.
+# Only works when Python optimization is off.
+# Can be useful for high-traffic pieces of code where you don't want the
+# test when they have been optimized for production use.
+# Usually, though, it is better to raise a proper exception.
+
+a = 43
+try:
+    assert 42 == a, a
+except AssertionError as exc:
+    print( exc )
+
+# Tip:
+#   help( "assert" )
+
+# <demo> --- stop ---
+
+### Doing nothing for a good cause... ###
+
+## 'pass' keyword ##
+# Similar to an empty ';' statement in C/C++.
+
+# A do-nothing function.
+# Actually has legitimate uses.
+def dummy_function( some_data ):
+    pass
+
+# Ignoring an exception.
+try:
+    1 / 0
+except ZeroDivisionError as exc:
+    pass
+
+# Tip:
+#   help( "pass" )
+
+# <demo> --- stop ---
+
+### Functional Programming ###
+
+# Python supports the notion of functional programming.
+# Functional programming involves composing functions with one another
+# and applying them to lists of data.
+# What we saw the various statements is an example of imperative programming.
+# Languages such as Mathematica, Lisp, and Scheme are very oriented
+# toward functional programming.
+
+## 'lambda' keyword ##
+# C++11 has some support for them via the '[]' keyword.
+# Mathematica provides them via the 'Function' function or the '&' shorthand.
+# Lisp and Scheme have them.
+# They are often called anonymous functions as they have no names.
+# They are supposed to be "pure" functions -
+# functions without side effects, such as performing I/O or changing global
+# variables.
+# Python lambda functions cannot contain statements - only function calls.
+
+# The simplest lambda function looks like this:
+# It takes no arguments and returns 'None'.
+print( type( lambda : None ) )
+f = lambda : None
+print( callable( f ) )
+print( f( ) )
+
+# Tip:
+#   help( "lambda" )
+
+# <demo> --- stop ---
+
+### Functional Programming ###
+
+## 'map' Built-in Callable ##
+# Applies a callable to every member of one or more sequences.
+print( map( ord, "Hello, world!" ) )
+print( map( lambda x, y: x << y, [ 6, 5, 4 ], [ 1, 2, 3 ] ) )
+
+## 'filter' Built-in Callable ##
+# If given 'None' instead of callable,
+# removes all sequence members which are "zero" values.
+# Else, applies callable to each sequence member,
+# and removes members corresponding to "zero" results.
+print( filter( None, [ 0, 1, False, True ] ) )
+
+## 'any' Built-in Callable ##
+# Returns 'True' if any element in a sequence is not a "zero" value.
+# Returns 'False' otherwise.
+print( any( [ 0, 1, False, True ] ) )
+
+## 'all' Built-in Callable ##
+# Returns 'True' if all elements in a sequence are not "zero" values.
+# Returns 'False' otherwise.
+print( all( [ 0, 1, False, True ] ) )
+
+# <demo> --- stop ---
+
+### Functional Programming ###
+
+## 'reduce' Built-in Callable ##
+# Reduces a sequence to a scalar by repeatedly applying a callable to
+# a pair of operands taken from the sequence.
+# The supplied default value will be returned if the sequence is empty.
+print( reduce( max, "", "" ) )
+# The only element of a 1-element sequence will be returned.
+print( reduce( max, "a" ) )
+# Otherwise, 'reduce' works as described above.
+print( reduce( max, "Hello, world!" ) )
+
+## 'sum' Built-in Callable ##
+# Equivalent to:
+#   reduce( lambda x, y: x + y, seq, start = 0 )
+# but limited to integers.
+print( sum( [ ] ) )
+print( sum( [ 42 ] ) )
+print( sum( [ 1, 4, 9, 16 ] ) )
+
+## 'zip' Built-in Callable ##
+# Works like a zipper, interlocking teeth together.
+# Can work on single sequences and more than two sequences.
+# Takes one element from the same position of each sequence,
+# and place them together in a tuple.
+# The resulting sequence of tuples is the length of the shortest sequence.
+print( zip( [ 1, 4, 9, 16 ] ) )
+print( zip( [ 1, 4, 9, 16 ], [ 1, 2, 4, 8, 16 ] ) )
+print( zip( "abc", "ABCD", "_" * 42 ) )
+
+# <demo> --- stop ---
+
+### Stacks and Queues ###
+
+## Stacks ##
+# Python does not have a built-in stack type.
+# But, lists can emulate stacks.
+
+ls = [ ]
+print( ls )
+ls.append( 4 )
+print( "pushed: 4" )
+print( ls )
+ls.append( 5 )
+print( "pushed: 5" )
+print( ls )
+print( "popped: ", ls.pop( ) )
+print( ls )
+# Note: You can also manipulate stacks the other way:
+#   insert( 0, item ) and pop( 0 )
+
+## Queues ##
+# Python does not have a built-in queue type either.
+# But, list can emulate queues too.
+
+ls = [ ]
+print( ls )
+ls.insert( 0, 4 )
+print( "enqueued: 4" )
+print( ls )
+ls.insert( 0, 5 )
+print( "enqueued: 5" )
+print( ls )
+print( "dequeued: ", ls.pop( ) )
+print( ls )
+# Note: You can also manipulate queues the other way:
+#   append( item ) and pop( 0 )
+
+# <demo> --- stop ---
+
+### Efficient Programming ###
+
+# There are various techniques and idioms you can use in Python to
+# reduce the amount of code you need to write and to possibly improve
+# the efficiency with which it runs.
+
+## 'xrange' Built-in Callable ##
+# Supplies a generator over integers with adjustable start, stop, and step.
+# Integers on [0,4).
+for i in xrange( 4 ):
+    print( i )
+# Integers on [1,5).
+for i in xrange( 1, 5 ):
+    print( i )
+# Even integers on [2,10).
+for i in xrange( 2, 10, 2 ):
+    print( i )
+# For really large intervals, this is memory-efficient because it generates
+# one value at a time rather than the entire sequence.
+
+# <demo> --- stop ---
+
+### Efficient Programming ###
+
+## List Comprehensions ##
+
+# Instead of doing:
+ls = [ ]
+for i in xrange( 10 ):
+    ls.append( i )
+# you could do:
+ls = [ i for i in xrange( 10 ) ]
+
+# Instead of doing:
+def identity_matrix( sz ):
+    mat = [ ]
+    for idx1 in xrange( sz ):
+        mat.append( [ ] )
+        for idx2 in xrange( sz ):
+            # Kronecker Delta
+            mat[ idx1 ].append( 1 if idx1 == idx2 else 0 )
+    return mat
+# you could do:
+def identity_matrix( sz ):
+    return [ [ (1 if idx1 == idx2 else 0) for idx1 in xrange( sz ) ]
+             for idx2 in xrange( sz ) ]
+
+# You can also use filter expressions in list comprehensions.
+# And, you can use multiple generators inside the same comprehension.
+print( [ [ x, y ] for x in xrange( 5 ) for y in xrange( 5 ) if x == y ] )
+
+# <demo> --- stop ---
+
+### Efficient Programming ###
+
+## Generator Expressions ##
+
+# List comprehensions create complete lists.
+# These can be large and eat up a lot of memory.
+# If you are only going to be using the list in one place,
+# then a generator expression might suit you better.
+
+for a, b in ([ x, y ] for x in xrange( 5 ) for y in xrange( 5 ) if x == y):
+    print( a, b )
+
+# <demo> --- stop ---
+
+### Classes ###
+
+### Miscellany ###
+
+## Line continuations ##
+
+## Parentheses ##
+
+## PEP 8 Style ##
 
 # TODO? Put below into 'stdlib' demo.
 
@@ -1113,6 +1841,8 @@ else:
 ### fractions ###
 
 ### decimal ###
+
+### random ###
 
 ### functools and operator ###
 
