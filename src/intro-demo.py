@@ -446,6 +446,50 @@ print( ls[ -2 : ] )
 
 # <demo> --- stop ---
 
+### Stacks ###
+
+# Python does not have a built-in stack type.
+# But, lists can emulate stacks.
+
+ls = [ ]
+print( ls )
+ls.append( 4 )
+print( "pushed: 4" )
+print( ls )
+ls.append( 5 )
+print( "pushed: 5" )
+print( ls )
+print( "popped: ", ls.pop( ) )
+print( ls )
+# Note: You can also manipulate stacks the other way:
+#   insert( 0, item ) and pop( 0 )
+
+# <demo> --- stop ---
+
+### Queues ###
+
+# Python does not have a built-in queue type either.
+# But, list can emulate queues too.
+
+ls = [ ]
+print( ls )
+ls.insert( 0, 4 )
+print( "enqueued: 4" )
+print( ls )
+ls.insert( 0, 5 )
+print( "enqueued: 5" )
+print( ls )
+print( "dequeued: ", ls.pop( ) )
+print( ls )
+# Note: You can also manipulate queues the other way:
+#   append( item ) and pop( 0 )
+
+# We will look at a double-ended queue type later on.
+# Also, there is a 'Queue' type in the Python standard library,
+# but that is used for synchronizing threads.
+
+# <demo> --- stop ---
+
 ### Conversion to Strings ###
 
 # You might think that you can use 'str' to convert a list to a string.
@@ -1711,44 +1755,6 @@ print( zip( "abc", "ABCD", "_" * 42 ) )
 
 # <demo> --- stop ---
 
-### Stacks and Queues ###
-
-## Stacks ##
-# Python does not have a built-in stack type.
-# But, lists can emulate stacks.
-
-ls = [ ]
-print( ls )
-ls.append( 4 )
-print( "pushed: 4" )
-print( ls )
-ls.append( 5 )
-print( "pushed: 5" )
-print( ls )
-print( "popped: ", ls.pop( ) )
-print( ls )
-# Note: You can also manipulate stacks the other way:
-#   insert( 0, item ) and pop( 0 )
-
-## Queues ##
-# Python does not have a built-in queue type either.
-# But, list can emulate queues too.
-
-ls = [ ]
-print( ls )
-ls.insert( 0, 4 )
-print( "enqueued: 4" )
-print( ls )
-ls.insert( 0, 5 )
-print( "enqueued: 5" )
-print( ls )
-print( "dequeued: ", ls.pop( ) )
-print( ls )
-# Note: You can also manipulate queues the other way:
-#   append( item ) and pop( 0 )
-
-# <demo> --- stop ---
-
 ### Efficient Programming ###
 
 # There are various techniques and idioms you can use in Python to
@@ -1818,48 +1824,269 @@ for a, b in ([ x, y ] for x in xrange( 5 ) for y in xrange( 5 ) if x == y):
 
 ### Classes ###
 
-### Miscellany ###
+# A class is an object, which is both a type and a callable.
+# When invoked as a callable, a class produces a new object of that type.
+# Classes may inherit definitions from other classes.
 
-## Line continuations ##
+# Simplest class definition.
+# A good practice is to inherit from the 'object' type.
+class A( object ):
+    pass
 
-## Parentheses ##
+# A class may contain functions, known as methods.
+# The first argument to a method is traditionally called 'self'.
+# This is reserved for the object itself to be passed as an argument,
+# and is mandatory for proper functioning of methods.
+# 'self' is used in a manner similar to C++'s 'this' pointer.
+class A( object ):
 
-## PEP 8 Style ##
+    # __init__ initializes new objects of the type
+    def __init__( self, *args ):
+        # Super makes calls to the "__init__" methods of the
+        # class' "superclasses" (the classes from which it inherits).
+        # In this case, the "__init__" method for the 'object' part of the
+        # new will be called.
+        super( A, self ).__init__( )
+        print( "Initializing a new object with ID {}.".format( id( self ) ) )
 
-# TODO? Put below into 'stdlib' demo.
+    # You can also define other methods, including ones that will support
+    # various operators.
 
-### Using Packages and Modules ###
-
-### sys ###
-
-### os.path ###
-
-### collections ###
-
-### math and cmath ###
-
-### fractions ###
-
-### decimal ###
-
-### random ###
-
-### functools and operator ###
-
-### pprint ###
-
-### re ###
-
-### argparse ###
-
-### pickle ###
-
-### hashlib ###
-
-### pdb ###
+# By default, a class object is of type 'type'.
+print( type( A ) )
+# An instance of a class (an object created by the class callable)
+# is of the type named by the class.
+an_object = A( )
+print( type( an_object ) )
 
 # <demo> --- stop ---
 
-## Recipe: Implies ##
+### Classes ###
 
-## Recipe: Exclusive-Or ##
+## Subclasses and Instances ##
+
+class A( object ):
+    pass
+
+# A "subclass" is a class which inherits from another class.
+print( issubclass( A, object ) )
+# Classes are considered to be subclasses of themselves.
+print( issubclass( A, A ) )
+# A class is an _instance_ of type 'type' - _not_ a _subclass_ of it.
+print( issubclass( A, type ) ) # False
+print( isinstance( A, type ) ) # True
+# An object created by a class is an _instance_ of the class
+# (and its superclasses), but is _not_ a _subclass_ of it.
+an_object = A( )
+try:
+    print( issubclass( an_object, A ) ) # Error! Not a class.
+except TypeError as exc:
+    print( exc )
+print( isinstance( an_object, A ) )  # True
+print( isinstance( an_object, object ) )  # Also true.
+
+# Want to see something fun...?
+# The 'type' type is a subclass of type 'object'.
+print( issubclass( type, object ) )
+# The 'type' type is an instance of type 'type'.
+print( isinstance( type, type ) )
+# The 'object' type is a subclass of type 'object'.
+print( issubclass( object, object ) )
+# The 'object' type is an instance of type 'type'.
+print( isinstance( object, type ) )
+# Confused?
+# Don't worry about it.
+
+# Q: Can a type ever be an instance of anything but type 'type'?
+# A: Yes. Read the documentation for Python metaclasses. ;-)
+#   (The 'type' type is a metaclass.)
+
+# <demo> --- stop ---
+
+### Modules ###
+
+# Python has the concept of namespaces known as "modules".
+# Modules contain functions, classes, and other variable names.
+
+# By default, a Python interpreter loads a module named "__main__";
+# it is the namespace in which we have been working.
+
+# Scripts automatically have access to a module named '__main__'.
+# Technically, you have access to it in an interactive session,
+# but trying to use 'dir' or 'type' on it may prove problematic.
+
+# Actually, performing 'dir' on it is easy.
+print( dir( ) )
+
+# But, let's access it via a layer of indirection to compare.
+# To do this, we will need to "import" the 'sys' module.
+import sys
+print( dir( sys.modules[ "__main__" ] ) )
+# Modules are instances of type 'module'.
+print( type( sys.modules[ "__main__" ] ) )
+
+# How did we know that it was named "__main__"?
+print( __name__ )
+# All modules have this attribute.
+# Note that we do not need to use any dot notation to access attributes
+# of the module which provides our current namespace.
+# You still can, if you prefer... It is more convoluted:
+print( sys.modules[ "__main__" ].__name__ )
+
+# <demo> --- stop ---
+
+### Packages ###
+
+# Packages are just hierarchical collections of modules.
+# Whereas modules reside in files, packages are directories which contain
+# modules. To be recognized as a package, the directory needs to have a
+# modules named '__init__.py' in it.
+# This is a technical detail you should not have to worry about unless you
+# are creating packages.
+
+# By default, importing a package loads the contents of its '__init__.py'
+# module, which has the name of the package associated with it. The '__name__'
+# attribute of a package module will have the name of the package and not
+# "__init__".
+import test
+print( test.__file__ )
+# 'test_support' is a module in the 'test' package.
+import test.test_support
+print( test.test_support.__file__ )
+
+# <demo> --- stop ---
+
+### Aliased Imports and Attribute Imports ###
+
+## Aliased Module Imports ##
+import sys as very_useful_module
+print( "very_useful_module" in dir( ) )
+print( very_useful_module.version )
+
+## Attribute Imports ##
+import sys
+print( sys.version_info )
+# Typing 'sys.' every time is annoying.
+# We could do:
+#   import sys
+#   version_info = sys.version_info
+# but there is an easier, nicer way:
+from sys import version_info
+print( dir( ) ) # Notice 'version_info' is now in the current namespace.
+print( version_info )
+
+## Importing all Attributes ##
+from os import *
+# All of the non-"__ __" names were imported into the current namespace.
+print( dir( ) )
+print( getpid( ) )
+
+## Aliased Attribute Imports ##
+from os.path import join as path_join
+print( path_join( "foo", "bar" ) )
+
+# <demo> --- stop ---
+
+### Forwards-Compatibility ###
+
+# You've probably heard of backwards-compatibility:
+# new releases of software should still be able to use older data or scripts.
+# Python 3 is not backwards-compatible with Python 2 in some cases.
+# (We've noted some of those cases in this demo.)
+# However, Python 2 has a mechanism to provide some forwards-compatibility
+# with Python 3.
+# There is a module named "__future__" in the Python standard library.
+
+# EXERCISE: Type the following line into your interactive session.
+#   from __future__ import absolute_import, division, print_function
+
+# <demo> --- stop ---
+
+### Line Continuations and Parentheses ###
+
+# Good Practice: Do not write lines of code longer than 80 characters.
+#                Some terminals only have 80 columns by default.
+#                If you use more than 80 columns your code will be hard to read.
+
+# Long lines can be broken up with the judicious use of "line continuations".
+# The backslash is a line continuation character when it appears outside of
+# a string. It must not have anything after it on a line - not even a comment.
+s = \
+"This is line one of a string. " \
+"This is line two of the same string."
+print( s ) # Notice the lack of line break.
+
+# Parentheses relax indentation rules in Python.
+# They also provide automatic line continuation.
+# The Python powers-that-be recommend using them for this purpose -
+# as well as part of the tuple syntax.... *sigh*
+s = (
+"This is line one of a string. "
+"This is line two of the same string."
+)
+print( s )
+
+# Note that both of the above examples are equivalent to this:
+# In short, Python merges adjacent string literals.
+s = "This is line one of a string. " "This is line two of the same string."
+print( s )
+
+# <demo> --- stop ---
+
+### Dubious Features ###
+
+# Whereas the syntactic sugar for tuples in Python is simply evil,
+# some other features of the language save space but worsen readability.
+
+## Multiple Statements per Line ##
+# You can use semicolons (";") to separate multiple statements on the same line.
+for i in xrange( 10 ):
+    if 5 == i:
+        print( "exiting loop at 5" ); break
+
+## Single-Line Blocks ##
+class A( object ): pass
+def foo( ): pass
+a = 5
+if a == 5: print( "a == 5" )
+
+# <demo> --- stop ---
+
+### Coding Style ###
+
+# Here's a frank admission: the coding style used in this demo does _not_
+# entirely comply with the recommendations in the Python coding style guide.
+# The examples in this demo use whitespace (spaces, tabs, newlines) to
+# separate tokens in ways that are discouraged by PEP 8, the style guide.
+# PEP is an acronym for Python Extension Proposal.
+# You can (and are strongly encouraged to) read PEP 8 here:
+#   http://www.python.org/dev/peps/pep-0008/
+# (The demo contains other deliberate violations of PEP 8 as well.
+#  Finding them is left as an exercise for the reader.)
+
+### Things We Didn't Cover In This Intro ###
+
+## Decorators ##
+# They're just callables which take callables as arguments
+# and do things to them.
+# If you see a '@' before a name, then that is a decorator being applied
+# to another callable.
+
+# What else?
+
+# <demo> --- stop ---
+
+### Conclusion ###
+
+# This concludes the introduction to Python.
+# The next demo is on working with useful packages from the standard library.
+
+# Thanks for reading this.
+# Feedback can be sent to: em >at< msu >dot< edu
+
+# Additional Resources:
+#  http://docs.python.org/2/tutorial/index.html
+#  http://docs.python.org/2/using/index.html
+
+# <demo> --- stop ---
+
