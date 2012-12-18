@@ -1,4 +1,10 @@
-# IPython log file
+# Demo: An Introduction to Python
+
+# To run this demo in IPython, use:
+#   from IPython.lib.demo import Demo
+#   intro_demo = Demo( path_to_this_file )
+#   intro_demo( )
+# where 'path_to_this_file' is the path (as a string) to this file.
 
 # <demo> silent
 from __future__ import (
@@ -551,9 +557,6 @@ print( set( [ 1, 1, "a", 2, 3, 2, 5, 1, 3, "a", None ] ) )
 # This immutability can add safety to your code at the cost of some flexibility.
 # EXERCISE: Try some of the above examples using 'frozenset' instead of 'set'.
 
-# The Python standard library provides an 'OrderedSet' type,
-# which preserves order. We will discuss this later.
-
 # <demo> --- stop ---
 
 ### The Trouble with Tuples ###
@@ -706,7 +709,7 @@ print( a.__floordiv__( 2 ) )
 a = 5
 print( a.__truediv__( 2 ) )
 # or you can issue the following statement:
-#   from __future__ import true_division
+#   from __future__ import division
 # and then divide as you might expect.
 # Note: If you import something from the '__future__' package in a script,
 #       then it must appear before other imports.
@@ -2071,6 +2074,21 @@ if a == 5: print( "a == 5" )
 # and do things to them.
 # If you see a '@' before a name, then that is a decorator being applied
 # to another callable.
+
+## 'getattr', 'setattr', 'delattr' ##
+# The 'getattr' callable gets attributes from objects (without use ".").
+#   getattr( 42, "__add__" )
+# The 'setattr' callable allows assignment of arbitrary attributes to obejcts.
+# You can guess what 'delattr' does.
+
+## 'property' ##
+# If you are familiar with VisualBasic, then you are familiar with properties.
+# Read: help(property)
+
+## 'vars' and 'globals' ##
+## 'global' statement ##
+
+## 'repr' ##
 
 # What else?
 
