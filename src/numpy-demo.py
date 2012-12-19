@@ -83,7 +83,7 @@ pprint( a.transpose( ) )
 # <demo> --- stop ---
 
 ## Linear Algebra ##
-from numpy,linalg import *
+from numpy.linalg import *
 
 a = array( [ [ 1, 3 ], [ 5, 7] ] )
 pprint( a )

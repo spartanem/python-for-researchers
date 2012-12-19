@@ -1410,13 +1410,6 @@ def add_with_default( x, y = 0 ):
 add_with_default( 3 )
 add_with_default( 4, 5 )
 
-## Keyword Arguments ##
-# Python callables can be given arguments in any order by specifying
-# their parameter names with assignments when calling them.
-def xyz_this( x, y, z ):
-    print( x, y, z )
-xyz_this( z = 3, x = 5, y = 7 )
-
 # <demo> --- stop ---
 
 ### Stacked or Contextual Execution ###
