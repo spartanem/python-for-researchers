@@ -2082,11 +2082,18 @@ if a == 5: print( "a == 5" )
 # You can guess what 'delattr' does.
 
 ## 'property' ##
-# If you are familiar with VisualBasic, then you are familiar with properties.
+# If you are familiar with some o the Microsoft Visual languages,
+# then you are familiar with properties.
+# (get, set, delete on the same attribute).
 # Read: help(property)
 
-## 'vars' and 'globals' ##
+## 'vars', 'locals', and 'globals' ##
+
 ## 'global' statement ##
+
+## Doc Strings ##
+
+## 'exec', 'execfile', and 'eval' ##
 
 ## 'repr' ##
 
