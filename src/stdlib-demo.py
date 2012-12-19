@@ -652,16 +652,167 @@ print( datetime.now( ) + timedelta( 2 ) )
 
 # <demo> --- stop ---
 
-### re ###
+### 're' Module ###
+# Regular expressions are very useful for many kinds of text processing.
+# Many languages, such as Mathematica, Perl, Ruby, have them.
+# Also, several common Unix utilities, such as 'grep' and 'sed' use them.
+import re
+
+# Regular expressions are written using a miniature pattern language.
+# We are not going to go over all aspects of this,
+# but show some examples of more commonly-used features.
+
+s = "If the answer is 42, then what was the question?"
+print( re.findall( r"42", s ) )
+# OK, so that was a somewhat underwhelming example,
+# because you can technically do something similar with substring matching.
+print( "42" in s )
+print( s.find( "42" ) )
+# Let's do something slightly more interesting.
+print( re.findall( r"\d+", s ) )  # Match 1 or more digits.
+s = s.replace( "42", "43" )
+print( re.findall( r"\d+", s ) )  # Match 1 or more digits.
+s = "1 + 100 == 101"
+print( re.findall( r"\d+", s ) )  # Match 1 or more digits.
+
+# <demo> --- stop ---
+
+### 're' Module ###
+
+# Tired of typing of regular expression over and over?
+# "Compile" it and assign the compiled expression to a variable.
+re_digits = re.compile( r"\d+" )
+print( re_digits.findall( "42 is being used 2 much in the demo." ) )
+# Now you apply the same regular expression over and over again to
+# various strings. Can be useful if you are processing a text file
+# line-by-line, for example.
+
+# You can also perform string substitutions with regular expressions.
+# Note the use of 'functools.partial' to hard-wire the substitution,
+# so that we can re-use it without typing it over and over again.
+dot_to_underscore = partial_function( re.sub, r"\.{1,1}", "_" )
+s = "version 3.0.5.19"
+print( dot_to_underscore( s ) )
+
+# Other useful features:
+#   * matching across multiple lines; see re.MULTILINE
+#   * iterator version of find for large texts; see re.finditer
+
+# For more information, see: http://docs.python.org/2/library/re.html
+
+# <demo> --- stop ---
 
 ### csv ###
+import csv
 
-### pickle ###
+# CSV readers (and writers) sit on top of regular file streams.
+# A list is returned per each record read.
+with open( "demo_data_1.csv", "rb" ) as csv_file:
+    csv_reader = csv.reader( csv_file )
+    for row in csv_reader:
+        print( row )
+
+# The header row can be used to supply dictionary keys.
+# A dictionary will then be returned per each record read.
+first_names = [ ]
+dobs = [ ]
+with open( "demo_data_1.csv", "rb" ) as csv_file:
+    csv_dreader = csv.DictReader( csv_file )
+    for row in csv_dreader:
+        first_names.append( row[ "First Name" ] )
+        dobs.append( time.strptime( row[ "DOB" ], "%m/%d/%y" ) )
+pprint( first_names )
+pprint( dobs )                     
+
+# For more information, see: http://docs.python.org/2/library/csv.html
+
+# <demo> --- stop ---
+
+### cPickle ###
+# Object persistence (serialization/deserialization).
+# Save values in memory to a file and then restore them later.
+import cPickle 
+
+ls = [ 1, "a", 42J ]
+with open( "test.pypickle", "wb" ) as pickle_file:
+    cPickle.dump( ls, pickle_file )
+with open( "test.pypickle", "rb" ) as pickle_file:
+    ls_new = cPickle.load( pickle_file )
+print( ls == ls_new )
+
+# For more information, see:
+#   http://docs.python.org/2/library/pickle.html
+#   http://docs.python.org/2/library/pickle.html#module-cPickle
+# In partciular:
+#   http://docs.python.org/2/library/pickle.html#what-can-be-pickled-and-unpickled
+#   http://docs.python.org/2/library/pickle.html#the-pickle-protocol       
+
+# <demo> --- stop ---
 
 ### argparse ###
+import argparse
 
-### hashlib ###
+# Example shamelessly adapted from the 'argparse' documentation.
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('integers', metavar='N', type=int, nargs='+',
+                   help='an integer for the accumulator')
+parser.add_argument('--sum', dest='accumulate', action='store_const',
+                   const=sum, default=max,
+                   help='sum the integers (default: find the max)')
 
-### pdb ###
+# Normally, we would leave the call to 'parse_args' empty,
+# so that it would sys.argv. However, for the sake of the demo,
+# we are passing a contrived argument list.
+args = parser.parse_args(['--sum', '7', '-1', '42'])
+print args.accumulate(args.integers)
+
+# See how easy that was?
+# You can use 'argparse' to specify simulation parameters, operating mode,
+# etc... without editing your code.
+
+# For more information, see: http://docs.python.org/2/library/argparse.html
+
+# <demo> --- stop ---
+
+### Other Useful Modules ###
+# The following are modules not covered by the demo,
+# but deserve honorable mentions.
+
+## 'struct' Module ##
+# Parse binary data. (Can come from files, network connections, etc....)
+
+## 'hashlib' Module ##
+# Generate cryptograpy-grade hashes of objects.
+# Useful for managing large digital repositories.
+# Cryptographic hashes are very different from one another,
+# if even one bit of their inputs is different.
+
+## 'StringIO' Module ##
+# Read and write to strings as if they were files.
+# Can be useful for capturing output, for example.
+# (Bonus points for parsing captured output with 're'.)
+
+## 'mmap' Module ##
+# Modify the contents of files as they were giant strings.
+# Can be much more efficient (and easier) than parsing files line-by-line,
+# especially if you need to parse structure from multiple lines.
+# Also useful for amortizing write-out costs of large files over a the
+# duration of a process rather than do everything at the end.
+
+## 'timeit' Module ##
+# Measure the performance of your code in action.
+
+## 'pdb' Module ##
+# Debug your code.
+# Basic debugger commands are similar to those of 'gdb'.
+
+### Concluding Remarks ###
+
+# The Python library is _large_.
+# We only just scratched the surface.
+# The documentation index for the entire library can be found at:
+#   http://docs.python.org/2/library/index.html
+
+# Thanks for working through this demo.
 
 # <demo> --- stop ---
