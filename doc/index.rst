@@ -9,14 +9,7 @@ Table of Contents
 
    distros
    ipython/index
-
-
-Indices and Tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   resources
 
 .. image:: _static/cc-by.png
    :align: center

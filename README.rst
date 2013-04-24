@@ -11,9 +11,8 @@ demos and documentation to this project, as time and motivation permit.
 
 License
 -------
-This work is licensed under the Creative Commons Attribution 3.0 Unported License.
-To view a copy of this license, visit:
 
-   http://creativecommons.org/licenses/by/3.0/ 
+This work is licensed under the `Creative Commons Attribution 3.0 Unported
+License <http://creativecommons.org/licenses/by/3.0/>`_.
 
 .. vim: set ft=rst ts=3 sts=3 sw=3 et tw=79:
