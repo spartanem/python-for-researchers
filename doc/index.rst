@@ -7,9 +7,11 @@ Table of Contents
    :maxdepth: 2
    :titlesonly:
 
+   outline
    distros
    ipython/index
    resources
+   packages
 
 .. image:: _static/cc-by.png
    :align: center
