@@ -7,10 +7,10 @@ Table of Contents
    :maxdepth: 2
    :titlesonly:
 
-   outline
-   distros
-   ipython/index
+   slides/python1
+   slides/python2
    resources
+   distros
    packages
 
 .. image:: _static/cc-by.png

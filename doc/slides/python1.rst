@@ -254,6 +254,8 @@ Working with Objects
 Working with Strings
 --------------------
 
+* Various kinds of string literals.
+
 * :py:func:`len`
 
 * Indexing
@@ -272,7 +274,7 @@ Working with Strings
 
 * :py:meth:`str.lower` and :py:meth:`str.upper`
 
-* :py:meth:`str.split` and :py:meth:`join`
+* :py:meth:`str.split` and :py:meth:`str.join`
 
 * :py:meth:`str.replace`
 
@@ -385,6 +387,8 @@ Working with Dictionaries
 
 * Value retrieval by indexing vs :py:meth:`dict.get`.
 
+* Manipulating sequences as dictionary values: :py:meth:`dict.setdefault`
+
 * Testing for a key with the ``in`` operator.
 
 * Lists of keys, values, and key-value pairs.
@@ -400,6 +404,8 @@ Flow Control and Modularity
 * ``pass``
 
 * ``def`` - ``yield`` - ``return``
+
+   * Docstrings.
    
    * Functions can return multiple values.
 
@@ -469,19 +475,31 @@ Working with Files
 Miscellany
 ----------
 
-* :py:func:`repr`
+* :py:func:`int`
+
+   * Number bases.
+
+* :py:func:`float`, :py:func:`complex`
+
+   * Infinities and not-a-number (NaN).
+
+* :py:func:`str`, :py:func:`unicode`, :py:func:`repr`
 
 * :py:func:`raw_input`
 
+* :py:func:`chr`, :py:func:`unichr`, :py:func:`ord`
+
 * :py:func:`eval`
 
-* :py:func:`exec`
+* :py:func:`exec`, :py:func:`execfile`
+
+* :py:mod:`__builtins__`, :py:mod:`__builtin__`, :py:mod:`builtins`
 
 * Decorators
 
 * Properties
 
-* :py:mod:`__builtins__`, :py:mod:`__builtin__`, :py:mod:`builtins`
+* Generator Expressions
 
 
 Standard Library
@@ -517,6 +535,20 @@ Python Sundries
 ~~~~~~~~~~~~~~~
 
 * :py:mod:`sys`
+   
+   * ``stdin``, ``stdout``, ``stderr``
+
+   * ``version``, ``version_info``
+
+   * ``modules``
+
+* :py:mod:`collections`
+
+   * :py:func:`collections.namedtuple` (type definitions for the lazy)
+
+   * :py:func:`collections.defaultdict`
+
+   * :py:func:`collections.OrderedDict`
 
 Human-Readable Data
 ~~~~~~~~~~~~~~~~~~~
@@ -528,9 +560,34 @@ Math and Statistics
 
 * :py:mod:`math`, :py:mod:`cmath`
 
-* :py:mod:`fraction`, :py:mod:`decimal`
+   * ``pi`` and ``e``
+
+   * Exercise: Quadruple the arc tangent of 1.
+
+   * Exercise: Investigate the difference between the built-in functions
+     :py:func:`int` and :py:func:`round` and the :py:mod:`math` functions
+     :py:func:`math.floor`, :py:func:`math.ceil`, and :py:func:`math.trunc`.
+
+* :py:mod:`decimal`
+   
+   * Examples.
+
+* :py:mod:`fractions`
+
+   * Examples (including classic 1.1 from float and from Decimal)
 
 * :py:mod:`random`
+
+   * :py:func:`random.choice`, :py:func:`random.sample`
+
+   * :py:func:`random.shuffle`
+
+   * Samples from assorted distributions.
+
+   * Examples.
+
+   * Exercise: Generate a list of 10 random samples from a Gaussian
+     distribution.
 
 Gathering Data
 ~~~~~~~~~~~~~~
@@ -539,12 +596,29 @@ Gathering Data
    
    * Can handle other separators besides commas.
 
+   * Can ignore header lines.
+
+   * Examples.
+
 * :py:mod:`urllib`, :py:mod:`urllib2`
+
+   * FTP and HTTP retrieval of data.
+
+   * Can scrape web pages for data.
+
+   * Examples.
 
 Data Persistence
 ~~~~~~~~~~~~~~~~
 
 * :py:mod:`pickle`
+
+   * :py:meth:`pickle.dump`
+
+   * :py:meth:`pickle.load`
+
+   * Exercise: Create a dictionary and set. Dump them to a file. Load them from
+     the file.
 
 Raking Data
 ~~~~~~~~~~~
@@ -557,6 +631,8 @@ Raking Data
 
    * Functional forms of built-in operators.
 
+   * Examples.
+
 * :py:mod:`re`
 
 Files, Directories, and Subprocesses
@@ -564,110 +640,12 @@ Files, Directories, and Subprocesses
 
 * :py:mod:`os`, :py:mod:`subprocess`
 
+   * :py:func:`os.getcwd`
+
+   * :py:func:`os.getpid`
+
+   * :py:class:`subprocess.Popen`
+
 * :py:mod:`os.path`, :py:mod:`glob`, :py:mod:`shutil`
-
-
-Python II: Data Analysis and Visualization
-==========================================
-
-Expectations
-------------
-
-* Consider me to be a tour guide rather than an expert.
-
-   * Will highlight capabilities of various pacakges, bu have very little
-     experience with most of them.
-
-IPython
--------
-
-* Copy and paste of example output.
-
-* Pop-up help.
-
-* Tab completions.
-
-* Persistent history.
-
-* Saving and restoring notebooks.
-
-* Pylab
-
-   * vs SAGE
-
-NumPy
------
-
-* NumPy arrays vs Python lists.
-
-* Creation of arrays.
-
-   * ``array``
-
-   * ``arange``
-
-   * ``linspace``
-
-   * ``zeros``, ``ones``
-
-* Reshaping arrays.
-
-* ``eye``
-
-* Element-wise operations.
-
-* Simple linear algebra.
-
-* Simple stats.
-
-SciPy
------
-
-matplotlib
-----------
-
-pandas
-------
-
-StatsModels
------------
-
-NetworkX
---------
-
-NLTK
-----
-
-scikits
--------
-
-* scikit-learn
-
-* scikit-image
-
-SymPy
------
-
-* Running ``isympy``.
-
-* Using SymPy from within an IPython GUI.
-
-   * Example.
-
-StarCluster
------------
-
-Miscellany
-----------
-
-* mpi4py
-
-* IPython parallelism
-
-* Cython
-
-* Numba
-
-* PyCUDA
 
 .. vim: set ft=rst ts=3 sts=3 sw=3 et tw=79:
