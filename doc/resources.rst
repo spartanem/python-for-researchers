@@ -12,7 +12,7 @@ Downloads for Presentation
 :download:`matplotlib Demo <../src/matplotlib-demo.py>`
 :download:`matplotlib Example Script <../src/lines3d_demo.py>`
 
-To use in IPythonr:
+To use in IPython:
 
 .. code-block:: python
 

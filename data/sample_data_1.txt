@@ -1,0 +1,5 @@
+Genus	Species	Genome Size (Kbp)
+Escherichia	coli	4600
+Arabidopsis	thaliana	157000
+Mus	musculus	2700000
+Homo	sapiens	3200000

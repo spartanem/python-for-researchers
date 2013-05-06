@@ -23,13 +23,21 @@ NumPy
 
    Documentation: http://docs.scipy.org/doc/numpy/reference/
 
-   Tutorial: 
+   Tutorial: http://www.scipy.org/Tentative_NumPy_Tutorial
 
 
 .. _SciPy Python Package:
 
 SciPy
 -----
+   
+   Overview: http://www.scipy.org/
+
+   Documentation: http://docs.scipy.org/doc/
+
+   Tutorial: http://docs.scipy.org/doc/scipy/reference/tutorial/
+
+   Recipes: http://www.scipy.org/Cookbook
 
 
 .. _matplotlib Python Package:
@@ -107,7 +115,7 @@ scikits
 .. _scikit-learn Python Package:
 
 scikit-learn
-------------
+~~~~~~~~~~~~
 
    Overview: http://scikit-learn.org/stable/
 
@@ -121,7 +129,7 @@ scikit-learn
 .. _sckikit-image Python Package:
 
 scikit-image
-------------
+~~~~~~~~~~~~
 
    Overview: http://scikit-image.org/
 
@@ -151,7 +159,37 @@ StarCluster
 
    Documentation: http://star.mit.edu/cluster/docs/latest/manual/index.html
 
+   Tutorial: http://star.mit.edu/cluster/docs/latest/quickstart.html
 
+   Note: You need to setup an Amazon AWS account before you can do anything
+         useful with this software. The account is free and you are given an
+         initial number of compute hours for free as well. However, you will be
+         charged beyond a certain point or for using a certain class of
+         computing resources.
+
+
+.. _Cython Python Package:
+
+Cython
+------
+   
+   Overview: http://cython.org/
+
+   Documentation: http://docs.cython.org/
+
+   Tutorial: http://docs.cython.org/src/tutorial/index.html
+
+
+.. _Numba Python Package:
+
+Numba
+-----
+
+   Overview: http://numba.pydata.org/
+
+   Documentation: http://numba.pydata.org/numba-doc/0.8/index.html
+
+   Examples: http://numba.pydata.org/numba-doc/0.8/examples.html
 
 
 .. vim: set ft=rst ts=3 sts=3 sw=3 et tw=79:
