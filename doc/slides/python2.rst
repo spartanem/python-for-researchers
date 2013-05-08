@@ -1,6 +1,7 @@
 Python II: Data Analysis and Visualization
 ==========================================
 
+
 Expectations
 ------------
 
@@ -17,6 +18,24 @@ Expectations
 
    * Will highlight capabilities of various packages, but have very little
      experience with most of them.
+
+
+Useful Resources
+----------------
+
+* Stack Overflow: http://stackoverflow.com  (Someone has probably already asked
+  your question and received an answer or a dozen answers. If not, you can ask
+  questions here too.)
+
+* Python 2 Reference: http://docs.python.org/2
+
+* Python 3 Reference: http://docs.python.org/3
+
+* IPython Notebook Gallery: http://nbviewer.ipython.org/
+
+* IPython Reference: `a collection of IPython tutorials
+  <https://github.com/ipython/ipython/tree/master/examples/notebooks#a-collection-of-notebooks-for-using-ipython-effectively>`_
+
 
 IPython
 -------

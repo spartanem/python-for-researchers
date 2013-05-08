@@ -604,7 +604,9 @@ Gathering Data
 
    * FTP and HTTP retrieval of data.
 
-   * Can scrape web pages for data.
+   * Can scrape web pages for data. Use in conjunction with something like 
+     BeautifulSoup. For example, see `this Stack Overflow question
+     <http://stackoverflow.com/questions/2081586/web-scraping-with-python>`_.
 
    * Examples.
 
@@ -634,6 +636,12 @@ Raking Data
    * Examples.
 
 * :py:mod:`re`
+   
+   * :py:func:`re.compile`
+
+   * :py:func:`re.findall`
+
+   * Examples.
 
 Files, Directories, and Subprocesses
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
