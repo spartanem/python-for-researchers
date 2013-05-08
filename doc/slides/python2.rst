@@ -85,6 +85,11 @@ NumPy
 
 * Simple stats.
 
+.. note:
+   If you were in the morning session, then you want to ``np.resize`` to resize
+   a NumPy array and not ``np.reshape`` as I accidentally wrote. Sorry for the
+   problem.
+
 SciPy
 -----
 
