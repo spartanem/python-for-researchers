@@ -5,6 +5,9 @@ Outlines and instructional materials for the *Python I: Intro* and *Python II:
 Data Analysis and Visualization* seminars taught as part of Michigan State
 University's semiannual Faculty Research Seminars.
 
+Thank you to everyone who attended these seminars. A number of good questions
+were asked and your feedback at the ends of the sessions was helpful.
+
 License
 -------
 
